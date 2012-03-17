@@ -8,7 +8,7 @@
     <ProjectGuid>{ED570D40-2A70-423E-BB5B-4563A064FB76}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestFoundation.Tests</RootNamespace>
+    <RootNamespace>Kayone.TestFoundation.Tests</RootNamespace>
     <AssemblyName>TestFoundation.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

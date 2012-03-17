@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Kayone.TestFoundation;
-using NLog;
+﻿using NLog;
 using NUnit.Framework;
 
-namespace TestFoundation.Tests
+namespace Kayone.TestFoundation.Tests
 {
     [TestFixture]
     public class LoggingTest: TestCore
