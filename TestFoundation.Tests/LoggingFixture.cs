@@ -1,11 +1,10 @@
 ﻿using NLog;
 using NUnit.Framework;
-using Kayone.TestFoundation;
 
 namespace Kayone.TestFoundation.Tests
 {
     [TestFixture]
-    public class LoggingTest : TestCore
+    public class LoggingFixture : TestCore
     {
         Logger logger = LogManager.GetCurrentClassLogger(); 
 
