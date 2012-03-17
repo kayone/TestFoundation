@@ -16,6 +16,8 @@ namespace Kayone.TestFoundation
                 ExceptionVerification.Register();
 
                 SetupLogger();
+            
+                LogManager.ReconfigExistingLoggers();
             }
         }
 
