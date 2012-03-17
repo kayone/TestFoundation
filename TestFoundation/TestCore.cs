@@ -6,7 +6,6 @@ using NUnit.Framework;
 
 namespace Kayone.TestFoundation
 {
-    [TestFixture]
     public abstract class TestCore<TSubject> : LoggingTest
     {
         private AutoMoqer _mocker;
@@ -64,7 +63,6 @@ namespace Kayone.TestFoundation
     }
 
 
-    [TestFixture]
     public abstract class TestCore : TestCore<object>
     {
         protected override object Subject

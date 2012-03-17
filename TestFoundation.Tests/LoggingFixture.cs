@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Kayone.TestFoundation.Tests
 {
     [TestFixture]
-    public class LoggingFixture : TestCore
+    public class LoggingFixture : Kayone.TestFoundation.TestCore
     {
         Logger logger = LogManager.GetCurrentClassLogger(); 
 
