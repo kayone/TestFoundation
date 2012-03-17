@@ -4,9 +4,9 @@ using NUnit.Framework;
 namespace Kayone.TestFoundation.Tests
 {
     [TestFixture]
-    public class LoggingFixture : Kayone.TestFoundation.TestCore
+    public class LoggingFixture : TestCore<object>
     {
-        Logger logger = LogManager.GetCurrentClassLogger(); 
+        Logger logger = LogManager.GetCurrentClassLogger();
 
         [Test]
         public void logs_should_be_sent_to_LogVerification()

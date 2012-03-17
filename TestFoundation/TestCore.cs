@@ -61,16 +61,4 @@ namespace Kayone.TestFoundation
             get { return Path.Combine(Directory.GetCurrentDirectory(), "temp"); }
         }
     }
-
-
-    public abstract class TestCore : TestCore<object>
-    {
-        protected override object Subject
-        {
-            get
-            {
-                throw new InvalidOperationException("Use TestCore<TSubject> base class if you need to use this property");
-            }
-        }
-    }
 }
