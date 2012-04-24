@@ -21,7 +21,7 @@ namespace Kayone.TestFoundation
                 return _mocker;
             }
         }
-        
+
         [SetUp]
         public void TestCoreSetup()
         {
@@ -41,14 +41,6 @@ namespace Kayone.TestFoundation
             {
                 return Mocker.Resolve<TSubject>();
             }
-        }
-
-        protected void WithStrictMocker()
-        {
-            if (_mocker != null)
-                throw new InvalidOperationException("Can not switch to a strict container after container has been used. make sure this is the first call in your test.");
-
-            _mocker = new AutoMoqer(MockBehavior.Strict);
         }
 
         public static string GetLongString(int lenght)
