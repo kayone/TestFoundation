@@ -15,5 +15,15 @@ namespace Kayone.TestFoundation.Tests
 
             ExceptionVerification.ExpectedErrors(1);
         }
+
+        [Test]
+        public void clear_should_clear_logs()
+        {
+            logger.Error("Some error");
+            logger.Error("Some error");
+
+            ExceptionVerification.Clear();
+            ExceptionVerification.AssertNoUnexcpectedLogs();
+        }
     }
 }

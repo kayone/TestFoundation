@@ -12,7 +12,7 @@ namespace Kayone.TestFoundation
 {
     public class ExceptionVerification : Target
     {
-        private static List<LogEventInfo> _logs = new List<LogEventInfo>();
+        private static Dictionary<string, List<LogEventInfo>> _logs = new Dictionary<string, List<LogEventInfo>>();
 
         public static void Register()
         {
@@ -23,12 +23,27 @@ namespace Kayone.TestFoundation
             Clear();
         }
 
+        private static List<LogEventInfo> CurrentLogs
+        {
+            get
+            {
+                var testName = TestContext.CurrentContext.Test.FullName;
+                lock (_logs)
+                {
+                    if (!_logs.ContainsKey(testName))
+                    {
+                        _logs.Add(testName, new List<LogEventInfo>());
+                    }
+                }
+                return _logs[testName];
+            }
+        }
 
         protected override void Write(LogEventInfo logEvent)
         {
             if (logEvent.Level >= LogLevel.Warn)
             {
-                _logs.Add(logEvent);
+                CurrentLogs.Add(logEvent);
             }
         }
 
@@ -37,7 +52,7 @@ namespace Kayone.TestFoundation
         /// </summary>
         public static void Clear()
         {
-            _logs = new List<LogEventInfo>();
+            CurrentLogs.Clear();
         }
 
         /// <summary>
@@ -94,29 +109,29 @@ namespace Kayone.TestFoundation
 
         public static void MarkInconclusive(Type exception)
         {
-            var inconclusiveLogs = _logs.Where(l => l.Exception != null && l.Exception.GetType() == exception).ToList();
+            var inconclusiveLogs = CurrentLogs.Where(l => l.Exception != null && l.Exception.GetType() == exception).ToList();
 
             if (inconclusiveLogs.Any())
             {
-                inconclusiveLogs.ForEach(c => _logs.Remove(c));
+                inconclusiveLogs.ForEach(c => CurrentLogs.Remove(c));
                 Assert.Inconclusive(GetLogsString(inconclusiveLogs));
             }
         }
 
         public static void MarkInconclusive(string text)
         {
-            var inconclusiveLogs = _logs.Where(l => l.FormattedMessage.ToLower().Contains(text.ToLower())).ToList();
+            var inconclusiveLogs = CurrentLogs.Where(l => l.FormattedMessage.ToLower().Contains(text.ToLower())).ToList();
 
             if (inconclusiveLogs.Any())
             {
-                inconclusiveLogs.ForEach(c => _logs.Remove(c));
+                inconclusiveLogs.ForEach(c => CurrentLogs.Remove(c));
                 Assert.Inconclusive(GetLogsString(inconclusiveLogs));
             }
         }
 
         private static void Expected(LogLevel level, int count)
         {
-            var levelLogs = _logs.Where(l => l.Level == level).ToList();
+            var levelLogs = CurrentLogs.Where(l => l.Level == level).ToList();
 
             if (levelLogs.Count != count)
             {
@@ -131,13 +146,13 @@ namespace Kayone.TestFoundation
                 Assert.Fail(message);
             }
 
-            levelLogs.ForEach(c => _logs.Remove(c));
+            levelLogs.ForEach(c => CurrentLogs.Remove(c));
         }
 
         private static void Ignore(LogLevel level)
         {
-            var levelLogs = _logs.Where(l => l.Level == level).ToList();
-            levelLogs.ForEach(c => _logs.Remove(c));
+            var levelLogs = CurrentLogs.Where(l => l.Level == level).ToList();
+            levelLogs.ForEach(c => CurrentLogs.Remove(c));
         }
     }
 }

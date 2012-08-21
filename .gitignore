@@ -32,3 +32,4 @@ _ReSharper*/
 #NZBDrone specific
 *.db
 *.orig
+packages/
