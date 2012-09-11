@@ -43,7 +43,7 @@ namespace Kayone.TestFoundation
         private static void RegisterConsoleLogger(LogLevel minLevel, string loggerNamePattern = "*")
         {
             var consoleTarget = new ConsoleTarget();
-            consoleTarget.Layout = "${message} ${exception}";
+            consoleTarget.Layout = "${level}: ${message} ${exception:format=tostring}";
             LogManager.Configuration.AddTarget(consoleTarget.GetType().Name, consoleTarget);
             LogManager.Configuration.LoggingRules.Add(new LoggingRule(loggerNamePattern, minLevel, consoleTarget));
 
