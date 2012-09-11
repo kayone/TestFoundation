@@ -6,6 +6,18 @@ using NUnit.Framework;
 
 namespace Kayone.TestFoundation
 {
+    public abstract class TestCore : TestCore<object>
+    {
+        protected override object Subject
+        {
+            get
+            {
+               throw new InvalidOperationException("Subject is not available in none-generic implementation of TestCore");
+            }
+        } 
+    }
+
+
     public abstract class TestCore<TSubject> : LoggingTest where TSubject : class
     {
         private AutoMoqer _mocker;
