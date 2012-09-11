@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace Kayone.TestFoundation
 {
-    public abstract class TestCore<TSubject> : LoggingTest
+    public abstract class TestCore<TSubject> : LoggingTest where TSubject : class
     {
         private AutoMoqer _mocker;
         protected AutoMoqer Mocker
@@ -35,11 +35,18 @@ namespace Kayone.TestFoundation
         }
 
 
+        private TSubject _subject;
+
         protected virtual TSubject Subject
         {
             get
             {
-                return Mocker.Resolve<TSubject>();
+                if (_subject == null)
+                {
+                    _subject = Mocker.Resolve<TSubject>();
+                }
+
+                return _subject;
             }
         }
 
