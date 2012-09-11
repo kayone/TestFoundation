@@ -44,6 +44,7 @@ namespace Kayone.TestFoundation
         public void TestCoreTearDown()
         {
             _mocker = null;
+            _subject = null;
         }
 
 
